@@ -14,4 +14,3 @@ class AboutTriangleProject2 < Neo::Koan
     # HINT: for tips, see http://stackoverflow.com/questions/3834203/ruby-koan-151-raising-exceptions
   end
 end
-

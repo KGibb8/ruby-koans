@@ -1,4 +1,4 @@
 ruby-koans
 ==========
 
-Clean base version of ruby koans
+My answers to Ruby Koans
