@@ -22,7 +22,7 @@ class AboutClasses < Neo::Koan
     assert_equal [], fido.instance_variables
 
     fido.set_name("Fido")
-    assert_equal [:name], fido.instance_variables
+    assert_equal [:@name], fido.instance_variables
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
@@ -124,14 +124,21 @@ class AboutClasses < Neo::Koan
     end
     # THINK ABOUT IT:
     # Why is this so?
-    #
+
+    # In order to initialize an object which has of the class Dog6, you have to
+    # meet the requirements of what constitutes being a Dog6, as defined by
+    # the initialize method. In the case of Dog6, no object can be a Dog6 unless
+    # it has a name.
+
+    # ArgumentError is returned because Dog6 cannot be initialized because it
+    # requires one argument, this case a name, which merely Dog6.new doesn't provide.
   end
 
   def test_different_objects_have_different_instance_variables
     fido = Dog6.new("Fido")
     rover = Dog6.new("Rover")
 
-    assert_equal false, rover.name != fido.name
+    assert_equal true, rover.name != fido.name
   end
 
   # ------------------------------------------------------------------
@@ -156,19 +163,11 @@ class AboutClasses < Neo::Koan
     end
   end
 
-  ## don't get this, talk yourself through it
-  ## fido = Dog7.new("Fido") creates a new instance of Dog7 class, an object,
-  ## with all of the attributes that come with being an object of Dog7, see above
-  ## Dog7's must have a name, as defined by the initialize method. You cannot initialize
-  ## an instance of Dog7 without filling in the required attributes in initialize
-
-  ##
-
   def test_inside_a_method_self_refers_to_the_containing_object
     fido = Dog7.new("Fido")
 
     fidos_self = fido.get_self
-    assert_equal __, fidos_self
+    assert_equal fido, fidos_self
   end
 
   def test_to_s_provides_a_string_version_of_the_object
@@ -183,7 +182,7 @@ class AboutClasses < Neo::Koan
 
   def test_inspect_provides_a_more_complete_string_version
     fido = Dog7.new("Fido")
-    assert_equal __, fido.inspect
+    assert_equal "<Dog named 'Fido'>", fido.inspect
   end
 
   def test_all_objects_support_to_s_and_inspect
